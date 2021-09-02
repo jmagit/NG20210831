@@ -10,10 +10,12 @@ import { SecurityModule } from './security';
 
 import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment';
+import { DemosComponent } from './demos/demos.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DemosComponent
   ],
   imports: [
     BrowserModule, FormsModule,
