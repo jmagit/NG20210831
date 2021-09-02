@@ -2,13 +2,14 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { LoggerService, MyCoreModule } from 'src/my-core';
+import { ERROR_LEVEL, LoggerService, MyCoreModule } from 'src/my-core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { MainModule } from './main';
 import { SecurityModule } from './security';
 
 import { AppComponent } from './app.component';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { AppComponent } from './app.component';
   ],
   providers: [
     LoggerService,
+    { provide: ERROR_LEVEL, useValue: environment.ERROR_LEVEL}
   ],
   bootstrap: [AppComponent]
 })

@@ -9,10 +9,10 @@ import { LoggerService } from 'src/my-core';
 export class AppComponent {
   title = 'Hola MUNDO';
 
-  constructor(out: LoggerService) {
-    out.error('Es un error');
-    out.warn('Es un warn');
-    out.info('Es un info');
-    out.log('Es un log');
-  }
+  // constructor(out: LoggerService) {
+  //   out.error('Es un error');
+  //   out.warn('Es un warn');
+  //   out.info('Es un info');
+  //   out.log('Es un log');
+  // }
 }
