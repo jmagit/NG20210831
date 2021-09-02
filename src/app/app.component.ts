@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
 
   constructor(private notify: NotificationService) {}
   ngOnInit(): void {
-    // this.notify.add('Esto sale del AppComponent')
+    this.notify.add('Esto sale del AppComponent')
   }
 
 

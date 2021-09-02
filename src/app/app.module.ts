@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -11,6 +10,7 @@ import { SecurityModule } from './security';
 import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment';
 import { DemosComponent } from './demos/demos.component';
+import { CommonServicesModule } from './common-services';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,7 @@ import { DemosComponent } from './demos/demos.component';
   ],
   imports: [
     BrowserModule, FormsModule,
-    CommonModule, MainModule, SecurityModule, MyCoreModule,
+    CommonServicesModule, MainModule, SecurityModule, MyCoreModule,
     AppRoutingModule
   ],
   providers: [
