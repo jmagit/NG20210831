@@ -8,7 +8,6 @@ import { NotificationService } from './common-services';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'Hola MUNDO';
 
   // constructor(out: LoggerService) {
   //   out.error('Es un error');
@@ -19,7 +18,7 @@ export class AppComponent implements OnInit {
 
   constructor(private notify: NotificationService) {}
   ngOnInit(): void {
-    this.notify.add('Esto sale del AppComponent')
+    // this.notify.add('Esto sale del AppComponent')
   }
 
 

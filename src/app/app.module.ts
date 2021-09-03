@@ -15,7 +15,7 @@ import { CommonServicesModule } from './common-services';
 @NgModule({
   declarations: [
     AppComponent,
-    DemosComponent
+    DemosComponent,
   ],
   imports: [
     BrowserModule, FormsModule,
