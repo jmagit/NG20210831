@@ -21,7 +21,7 @@ export class DemosComponent implements OnInit, OnDestroy {
 
   resultado: string = '';
   visible = true;
-  estetica = { importente: true, error: false, urgente: true };
+  estetica = { importante: true, error: false, urgente: true };
   fontSize = 24;
 
   constructor(public vm: NotificationService) { }
@@ -44,7 +44,7 @@ export class DemosComponent implements OnInit, OnDestroy {
 
   cambia() {
     this.visible = !this.visible;
-    this.estetica.importente = !this.estetica.importente;
+    this.estetica.importante = !this.estetica.importante;
     this.estetica.error = !this.estetica.error;
   }
 
@@ -53,7 +53,7 @@ export class DemosComponent implements OnInit, OnDestroy {
   }
 
   add(provincia: string) {
-    const id = this.listado.length === 0 ? 1 : (this.listado[this.listado.length + 1].id + 1);
+    const id = this.listado.length === 0 ? 1 : (this.listado[this.listado.length - 1].id + 1);
     this.listado.push({id, nombre: provincia});
     this.idProvincia = id;
   }
