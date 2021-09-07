@@ -11,11 +11,13 @@ import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment';
 import { DemosComponent } from './demos/demos.component';
 import { CommonServicesModule } from './common-services';
+import { DinamicoComponent } from './dinamico/dinamico.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DemosComponent,
+    DinamicoComponent,
   ],
   imports: [
     BrowserModule, FormsModule,
