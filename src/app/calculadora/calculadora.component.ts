@@ -88,7 +88,7 @@ export class CalculadoraComponent implements OnInit, OnChanges {
   borrar() {
     if (this.limpiar || this.pantalla.length === 1) {
       this.pantalla = '0';
-      this.limpiar = true;
+      this.limpiar = false;
     } else {
       this.pantalla = this.pantalla.substr(0,
           this.pantalla.length - 1);
@@ -130,21 +130,21 @@ export class CalculadoraComponent implements OnInit, OnChanges {
     this.resumen = value === '=' ? '' : (this.resumen + this.pantalla + value);
     // Number: double-precision IEEE 754 floating point.
     // 9.9 + 1.3, 0.1 + 0.2, 1.0 - 0.9
-    // this.pantalla = parseFloat(this.acumulado.toPrecision(10)).toString();
-    this.pantalla = this.acumulado.toString();
+    this.pantalla = parseFloat(this.acumulado.toPrecision(10)).toString();
+    // this.pantalla = this.acumulado.toString();
     this.updated.emit(this.acumulado);
     this.operador = value;
     this.limpiar = true;
   }
 
   ngOnInit() {
-    if (this.init) {
-      this.ponOperando(this.init);
-    }
-  }
-  ngOnChanges(changes: SimpleChanges): void {
     // if (this.init) {
     //   this.ponOperando(this.init);
     // }
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.init) {
+      this.ponOperando(this.init);
+    }
   }
 }
