@@ -25,7 +25,8 @@ export class Contactos {
 })
 export class ContactosDAOService extends RESTDAOService<any, any> {
   constructor(http: HttpClient) {
-    super(http, 'contactos', { context: new HttpContext().set(AUTH_REQUIRED, true) });
+    super(http, 'contactos', { withCredentials: true });
+//    super(http, 'contactos', { context: new HttpContext().set(AUTH_REQUIRED, true) });
   }
 }
 
@@ -92,8 +93,8 @@ export class ContactosViewModelService {
   public cancel(): void {
     this.elemento = {};
     this.idOriginal = null;
-    // this.list();
-    this.router.navigateByUrl(this.listURL);
+    this.list();
+    // this.router.navigateByUrl(this.listURL);
   }
 
   public send(): void {

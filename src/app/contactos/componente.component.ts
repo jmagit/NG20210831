@@ -7,11 +7,14 @@ import { ContactosViewModelService } from './servicios.service';
   templateUrl: './tmpl-anfitrion.component.html',
   styleUrls: ['./componente.component.css']
 })
-export class ContactosComponent implements OnInit {
+export class ContactosComponent implements OnInit, OnDestroy {
   constructor(protected vm: ContactosViewModelService) { }
   public get VM(): ContactosViewModelService { return this.vm; }
   ngOnInit(): void {
     this.vm.list();
+  }
+  ngOnDestroy(): void {
+    this.vm.clear()
   }
 }
 @Component({
