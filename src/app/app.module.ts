@@ -12,8 +12,8 @@ registerLocaleData(localeEs, 'es', localeEsExtra);
 // ---------------------------------------------------------------------
 
 import { AppRoutingModule } from './app-routing.module';
-import { MainModule } from './main';
-import { SecurityModule } from './security';
+import { AjaxWaitInterceptor, MainModule } from './main';
+import { AuthInterceptor, SecurityModule } from './security';
 
 import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment';
@@ -22,7 +22,7 @@ import { CommonServicesModule } from './common-services';
 import { DinamicoComponent } from './dinamico/dinamico.component';
 import { CalculadoraComponent } from './calculadora/calculadora.component';
 import { FormularioComponent } from './formulario/formulario.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -41,6 +41,8 @@ import { HttpClientModule } from '@angular/common/http';
     LoggerService,
     { provide: ERROR_LEVEL, useValue: environment.ERROR_LEVEL},
     { provide: LOCALE_ID, useValue: 'es-ES' },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true, },
+    { provide: HTTP_INTERCEPTORS, useClass: AjaxWaitInterceptor, multi: true, },
   ],
   bootstrap: [AppComponent]
 })

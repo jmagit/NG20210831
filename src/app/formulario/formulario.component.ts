@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpContext } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { RESTDAOService } from '../base-code/RESTDAOService.class';
-import { NotificationService } from '../common-services';
+import { NotificationService, NotificationType } from '../common-services';
 
 class Persona {
   id: number | null = null;
@@ -13,11 +13,12 @@ class Persona {
 }
 
 import { Injectable } from '@angular/core';
+import { AUTH_REQUIRED } from '../security';
 
 @Injectable({ providedIn: 'root' })
 class PersonasDAOService extends RESTDAOService<Persona, number> {
   constructor(http: HttpClient) {
-    super(http, 'personas')
+    super(http, 'personas', { context: new HttpContext().set(AUTH_REQUIRED, true) })
   }
 }
 
@@ -54,6 +55,18 @@ export class FormularioComponent implements OnInit {
   }
 
   send() {
-    window.alert(JSON.stringify(this.elemento))
+    if (this.isAdd)
+      this.dao.add(this.elemento).subscribe(
+        data => this.notify.add('OK', NotificationType.warn),
+        err => this.notify.add(err.message)
+      )
+    else
+      if (this.elemento.id)
+        this.dao.change(this.elemento.id, this.elemento).subscribe(
+          data => this.notify.add('OK', NotificationType.warn),
+          err => this.notify.add(err.message)
+        )
+
+    // window.alert(JSON.stringify(this.elemento))
   }
 }
