@@ -4,7 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MyCoreModule } from 'src/my-core';
 import { CommonServicesModule } from '../common-services';
-import { CONTACTOS_COMPONENTES } from './componente.component';
+import { ContactosComponent, CONTACTOS_COMPONENTES } from './componente.component';
+import {PaginatorModule} from 'primeng/paginator';
 
 
 @NgModule({
@@ -13,10 +14,12 @@ import { CONTACTOS_COMPONENTES } from './componente.component';
   ],
   exports: [
     CONTACTOS_COMPONENTES,
+    // ContactosComponent,
   ],
   imports: [
     CommonModule, FormsModule, RouterModule.forChild([]),
     MyCoreModule, CommonServicesModule,
+    PaginatorModule,
   ]
 })
 export class ContactosModule { }

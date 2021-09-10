@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoggerService } from 'src/my-core';
-import { NotificationService } from './common-services';
+import { NavigationService, NotificationService } from './common-services';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
   //   out.log('Es un log');
   // }
 
-  constructor(private notify: NotificationService) {}
+  constructor(private notify: NotificationService, private navigation: NavigationService) {}
   ngOnInit(): void {
     // this.notify.add('Esto sale del AppComponent')
   }

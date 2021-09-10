@@ -80,7 +80,7 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private auth: AuthService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (!(req.context.get(AUTH_REQUIRED) || req.withCredentials) || ! this.auth.isAutenticated) {
+    if (!(req.context.get(AUTH_REQUIRED) || req.withCredentials) || !this.auth.isAutenticated) {
       return next.handle(req);
     }
     const authReq = req.clone(

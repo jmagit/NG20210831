@@ -4,7 +4,7 @@ import { HttpClient, HttpContext } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { LoggerService } from 'src/my-core';
 import { NotificationService } from '../common-services';
-import { RESTDAOService } from '../base-code/RESTDAOService.class';
+import { RESTDAOService } from '../base-code/RESTDAOService';
 import { AUTH_REQUIRED } from '../security';
 
 @Injectable({

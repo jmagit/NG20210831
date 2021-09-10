@@ -11,7 +11,8 @@ export class ContactosComponent implements OnInit, OnDestroy {
   constructor(protected vm: ContactosViewModelService) { }
   public get VM(): ContactosViewModelService { return this.vm; }
   ngOnInit(): void {
-    this.vm.list();
+    //this.vm.list();
+    this.vm.load();
   }
   ngOnDestroy(): void {
     this.vm.clear()
@@ -41,6 +42,7 @@ export class BotonesComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {  }
 }
 
+/*
 @Component({
   selector: 'app-contactos-list',
   templateUrl: './tmpl-list.sin-rutas.component.html',
@@ -88,7 +90,7 @@ export class ContactosViewComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void { }
 }
 
-/*
+*/
 @Component({
   selector: 'app-contactos-list',
   templateUrl: './tmpl-list.con-rutas.component.html',
@@ -166,7 +168,7 @@ export class ContactosViewComponent implements OnInit, OnDestroy {
     this.obs$.unsubscribe();
   }
 }
-*/
+
 
 
 export const CONTACTOS_COMPONENTES = [

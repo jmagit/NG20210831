@@ -1,10 +1,11 @@
 import { HttpClient, HttpContext } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { LoggerService } from 'src/my-core';
-import { RESTDAOService } from '../base-code/RESTDAOService.class';
+import { RESTDAOService } from '../base-code/RESTDAOService';
 import { ModoCRUD } from '../base-code/tipos';
-import { NotificationService } from '../common-services';
+import { NavigationService, NotificationService } from '../common-services';
 import { AUTH_REQUIRED } from '../security';
 
 export class Contactos {
@@ -25,8 +26,24 @@ export class Contactos {
 })
 export class ContactosDAOService extends RESTDAOService<any, any> {
   constructor(http: HttpClient) {
-    super(http, 'contactos', { withCredentials: true });
-//    super(http, 'contactos', { context: new HttpContext().set(AUTH_REQUIRED, true) });
+    // super(http, 'contactos', { withCredentials: true });
+    super(http, 'contactos', { context: new HttpContext().set(AUTH_REQUIRED, true) });
+  }
+  page(page: number, rows: number = 20): Observable<{ page: number, pages: number, rows: number, list: Array<any> }> {
+    return new Observable(subscriber => {
+      this.http.get<{ pages: number, rows: number }>(`${this.baseUrl}?_page=count&_rows=${rows}`)
+        .subscribe(
+          data => {
+            if (page >= data.pages) page = data.pages > 0 ? data.pages - 1 : 0;
+            this.http.get<Array<any>>(`${this.baseUrl}?_page=${page}&_rows=${rows}&_sort=nombre`)
+              .subscribe(
+                lst => subscriber.next({ page, pages: data.pages, rows: data.rows, list: lst }),
+                err => subscriber.error(err)
+              )
+          },
+          err => subscriber.error(err)
+        )
+    })
   }
 }
 
@@ -41,7 +58,7 @@ export class ContactosViewModelService {
   protected listURL = '/contactos';
 
   constructor(protected notify: NotificationService,
-    protected out: LoggerService,
+    protected out: LoggerService, private navigation: NavigationService,
     protected dao: ContactosDAOService, protected router: Router) { }
 
   public get Modo(): ModoCRUD { return this.modo; }
@@ -93,8 +110,10 @@ export class ContactosViewModelService {
   public cancel(): void {
     this.elemento = {};
     this.idOriginal = null;
-    this.list();
+    // this.list();
     // this.router.navigateByUrl(this.listURL);
+    //this.load(this.page)
+    this.navigation.back()
   }
 
   public send(): void {
@@ -123,4 +142,20 @@ export class ContactosViewModelService {
     this.listado = [];
   }
 
+  page = 0;
+  totalPages = 0;
+  totalRows = 0;
+  rowsPerPage = 8;
+  load(page: number = 0) {
+    this.dao.page(page, this.rowsPerPage).subscribe(
+      rslt => {
+        this.page = rslt.page;
+        this.totalPages = rslt.pages;
+        this.totalRows = rslt.rows;
+        this.listado = rslt.list;
+        this.modo = 'list';
+      },
+      err => this.notify.add(err.message)
+    )
+  }
 }
