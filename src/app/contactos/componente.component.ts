@@ -100,7 +100,8 @@ export class ContactosListComponent implements OnInit {
   constructor(protected vm: ContactosViewModelService) { }
   public get VM(): ContactosViewModelService { return this.vm; }
   ngOnInit(): void {
-    this.vm.list();
+    //this.vm.list();
+    this.vm.load();
   }
 }
 

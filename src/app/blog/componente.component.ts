@@ -13,12 +13,12 @@ export class BlogComponent implements OnInit {
   ngOnInit(): void {
     let id = this.route.snapshot.params['id'];
     if (id) {
-      if (this.route.snapshot.url.slice(-1)[0].path === 'edit') {
+      if (this.route.snapshot.url.slice(-1)[0]?.path === 'edit') {
         this.vm.edit(+id);
       } else {
         this.vm.view(+id);
       }
-    } else if (this.route.snapshot.url.slice(-1)[0] && this.route.snapshot.url.slice(-1)[0].path === 'add') {
+    } else if (this.route.snapshot.url.slice(-1)[0]?.path === 'add') {
       this.vm.add();
     } else {
       this.vm.list();
@@ -28,7 +28,7 @@ export class BlogComponent implements OnInit {
 
 @Component({
   selector: 'app-blog-list',
-  templateUrl: './tmpl-list.sin-rutas.component.html',
+  templateUrl: './tmpl-list.con-rutas.component.html',
   styleUrls: ['./componente.component.css']
 })
 export class BlogListComponent implements OnInit, OnDestroy {

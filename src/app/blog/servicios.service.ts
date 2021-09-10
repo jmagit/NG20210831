@@ -3,7 +3,7 @@ import { ModoCRUD } from '../base-code/tipos';
 import { HttpClient, HttpContext } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { LoggerService } from 'src/my-core';
-import { NotificationService } from '../common-services';
+import { NavigationService, NotificationService } from '../common-services';
 import { RESTDAOService } from '../base-code/RESTDAOService';
 import { AUTH_REQUIRED } from '../security';
 
@@ -27,7 +27,7 @@ export class BlogViewModelService {
   protected listURL = '/blog';
 
   constructor(protected notify: NotificationService, protected out: LoggerService,
-              protected dao: BlogDAOService, protected router: Router) { }
+              protected dao: BlogDAOService, private navigation: NavigationService) { }
 
   public get Modo(): ModoCRUD { return this.modo; }
   public get Listado(): Array<any> { return this.listado; }
@@ -79,8 +79,9 @@ export class BlogViewModelService {
   public cancel(): void {
     this.elemento = {};
     this.idOriginal = null;
-    this.list();
+    // this.list();
     // this.router.navigateByUrl(this.listURL);
+    this.navigation.back()
   }
   public send(): void {
     switch (this.modo) {

@@ -6,8 +6,9 @@ import { Title } from '@angular/platform-browser';
 
 @Injectable({ providedIn: 'root' })
 export class NavigationService {
+  private readonly MAX_CACHE = 5
   private history: Array<string> = [];
-  constructor(private router: Router, private title: Title, logger: LoggerService) {
+  constructor(private router: Router, private title: Title, private logger: LoggerService) {
     router.events.subscribe(e => {
       if (e instanceof ActivationStart) {
         let ev: ActivationStart = e as ActivationStart;
@@ -20,17 +21,18 @@ export class NavigationService {
       if (e instanceof NavigationEnd) {
         let ev: NavigationEnd = e as NavigationEnd;
         this.history.push(ev.url);
-        logger.log(`${e.url}`);
+        if(this.history.length > this.MAX_CACHE) this.history.splice(0, 1)
+        logger.log(`Navigate to ${e.url}`);
       }
     });
   }
-  back(delta: number = 1) {
-    while(delta && this.history.length > 1) {
+  back(defecto: string = '/', delta: number = 1) {
+    while (delta && this.history.length > 0) {
       this.history.pop();
       delta--;
     }
-    const url = this.history.pop();
-    if(url)
-      this.router.navigateByUrl(url);
+    const url = this.history.pop() ?? defecto;
+    this.router.navigateByUrl(url);
+    this.logger.log(`Back to ${url}`);
   }
 }
